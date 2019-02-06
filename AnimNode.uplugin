@@ -1,0 +1,34 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": ".1337",
+	"FriendlyName": "New Anim Nodes",
+	"Description": "New anim node mirror with more to come",
+	"Category": "fBlah",
+	"CreatedBy": "Ajit D'Monte",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": true,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "AnimNode",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"AnimGraphRuntime"
+			]
+		},
+		{
+			"Name": "AnimNodeEditor",
+			"Type": "Editor",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"AnimGraph"
+			]
+		}
+	]
+}
