@@ -24,6 +24,13 @@ enum class MirrorDir : uint8
 	XY_Axis = 4,
 	YZ_Axis = 5,
 	XZ_Axis = 6,
+	NegX_Axis = 7,
+	NegY_Axis = 8,
+	NegZ_Axis = 9,
+	NegXY_Axis = 10,
+	NegYZ_Axis = 11,
+	NegXZ_Axis = 12,
+
 };
 
 UCLASS(BlueprintType)

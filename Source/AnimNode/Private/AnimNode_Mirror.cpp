@@ -87,10 +87,11 @@ void FAnimNode_Mirror::Evaluate_AnyThread(FPoseContext & Output)
 			FCompactPoseBoneIndex lInd2 = FCompactPoseBoneIndex(Output.AnimInstanceProxy->GetSkelMeshComponent()->GetBoneIndex(mAnimMirrorData->GetBoneMirrorDataStructure()[i + 1]));
 
 			FTransform lT1 = Output.Pose[lInd1];
-			FTransform lT2 = Output.Pose[lInd2];
+			FTransform lT2 = Output.Pose[lInd2];			
 
 			MirrorPose(lT1, (uint8)mAnimMirrorData->GetBoneMirrorAxisDataStructure()[i / 2], (uint8)mAnimMirrorData->GetBoneRightAxisDataStructure()[i / 2]);
 			MirrorPose(lT2, (uint8)mAnimMirrorData->GetBoneMirrorAxisDataStructure()[i / 2], (uint8)mAnimMirrorData->GetBoneRightAxisDataStructure()[i / 2]);
+
 			if (!(uint8)mAnimMirrorData->GetBoneMirrorAxisDataStructure()[i / 2]) {
 				Output.Pose[lInd1].SetRotation(Output.Pose.GetRefPose(lInd1).GetRotation() * Output.Pose.GetRefPose(lInd2).GetRotation().Inverse() * lT2.GetRotation());
 				Output.Pose[lInd2].SetRotation(Output.Pose.GetRefPose(lInd2).GetRotation() * Output.Pose.GetRefPose(lInd1).GetRotation().Inverse() * lT1.GetRotation());
@@ -103,6 +104,19 @@ void FAnimNode_Mirror::Evaluate_AnyThread(FPoseContext & Output)
 				Output.Pose[lInd2].SetLocation((Output.Pose.GetRefPose(lInd1).GetRotation().Inverse() * lT1.GetRotation() * (lT1.GetLocation() - Output.Pose.GetRefPose(lInd1).GetLocation()))
 					+ Output.Pose.GetRefPose(lInd2).GetLocation());
 			}
+
+			if ((uint8)mAnimMirrorData->GetBoneMirrorAxisDataStructure()[i / 2] >= 7) {
+				Output.Pose[lInd1].SetRotation(lT2.GetRotation());
+				Output.Pose[lInd2].SetRotation(lT1.GetRotation());
+			}
+			if ((uint8)mAnimMirrorData->GetBoneRightAxisDataStructure()[i / 2] >= 7) {
+				Output.Pose[lInd1].SetLocation((Output.Pose.GetRefPose(lInd2).GetRotation().Inverse() * lT2.GetRotation() * (lT2.GetLocation() - Output.Pose.GetRefPose(lInd2).GetLocation()))
+					+ Output.Pose.GetRefPose(lInd1).GetLocation());
+
+				Output.Pose[lInd2].SetLocation((Output.Pose.GetRefPose(lInd1).GetRotation().Inverse() * lT1.GetRotation() * (lT1.GetLocation() - Output.Pose.GetRefPose(lInd1).GetLocation()))
+					+ Output.Pose.GetRefPose(lInd2).GetLocation());
+			}
+
 			lAr.Add(lInd1);
 			lAr.Add(lInd2);
 
@@ -146,33 +160,39 @@ void FAnimNode_Mirror::MirrorPose(FTransform& input_pose, const uint8 mirror_axi
 	FVector lMirroredLoc = input_pose.GetLocation();
 	switch (pos_fwd_mirror) {
 		case 1:
+		case 7:
 		{
 			lMirroredLoc.X = -lMirroredLoc.X;
 			break;
 		}
 		case 2:
+		case 8:
 		{
 			lMirroredLoc.Y = -lMirroredLoc.Y;
 			break;
 		}
 		case 3:
+		case 9:
 		{
 			lMirroredLoc.Z = -lMirroredLoc.Z;
 			break;
 		}
 		case 4:
+		case 10:
 		{
 			lMirroredLoc.X = -lMirroredLoc.X;
 			lMirroredLoc.Y = -lMirroredLoc.Y;
 			break;
 		}
 		case 5:
+		case 11:
 		{
 			lMirroredLoc.Y = -lMirroredLoc.Y;
 			lMirroredLoc.Z = -lMirroredLoc.Z;
 			break;
 		}
 		case 6:
+		case 12:
 		{
 			lMirroredLoc.X = -lMirroredLoc.X;
 			lMirroredLoc.Z = -lMirroredLoc.Z;
@@ -186,6 +206,7 @@ void FAnimNode_Mirror::MirrorPose(FTransform& input_pose, const uint8 mirror_axi
 	switch (mirror_axis)
 	{
 		case 1:
+		case 7:
 		{
 			const float lY = -input_pose.GetRotation().Y;
 			const float lZ = -input_pose.GetRotation().Z;
@@ -194,6 +215,7 @@ void FAnimNode_Mirror::MirrorPose(FTransform& input_pose, const uint8 mirror_axi
 		}
 
 		case 2:
+		case 8:
 		{
 			const  float lX = -input_pose.GetRotation().X;
 			const float lZ = -input_pose.GetRotation().Z;
@@ -202,6 +224,7 @@ void FAnimNode_Mirror::MirrorPose(FTransform& input_pose, const uint8 mirror_axi
 		}
 
 		case 3:
+		case 9:
 		{
 			const float lX = -input_pose.GetRotation().X;
 			const float lY = -input_pose.GetRotation().Y;
@@ -209,6 +232,7 @@ void FAnimNode_Mirror::MirrorPose(FTransform& input_pose, const uint8 mirror_axi
 			break;
 		}
 		case 4:
+		case 10:
 		{
 			const float lZ = -input_pose.GetRotation().Z;
 		
@@ -216,16 +240,18 @@ void FAnimNode_Mirror::MirrorPose(FTransform& input_pose, const uint8 mirror_axi
 			break;
 		}
 		case 5:
+		case 11:
 		{
 			const float lX = -input_pose.GetRotation().X;		
 			input_pose.SetRotation(FQuat(lX, input_pose.GetRotation().Y, input_pose.GetRotation().Z, input_pose.GetRotation().W));
 			break;
 		}
 		case 6:
+		case 12:
 		{
 			const float lY = -input_pose.GetRotation().Y;
 			input_pose.SetRotation(FQuat(input_pose.GetRotation().X, lY, input_pose.GetRotation().Z, input_pose.GetRotation().W));
 			break;
-		}
+		}		
 	}
 };
