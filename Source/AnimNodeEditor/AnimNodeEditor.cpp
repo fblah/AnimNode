@@ -22,7 +22,7 @@ void FAnimNodeEditorModule::ShutdownModule()
 
 #undef LOCTEXT_NAMESPACE
 	
-IMPLEMENT_MODULE(FAnimNodeEditorModule, AnimNode)
+IMPLEMENT_MODULE(FAnimNodeEditorModule, AnimNodeEditor)
 
 
 //Use this for game module
