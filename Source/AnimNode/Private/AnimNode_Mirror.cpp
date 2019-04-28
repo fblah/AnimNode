@@ -34,12 +34,7 @@ void FAnimNode_Mirror::CacheBones_AnyThread(const FAnimationCacheBonesContext & 
 }
 void FAnimNode_Mirror::Update_AnyThread(const FAnimationUpdateContext & Context)
 {
-	//***************************************
-	// Evaluate Graph, see AnimNode_Base, AnimNodeBase.h
-	EvaluateGraphExposedInputs.Execute(Context);
-	//***************************************
-
-	
+		
 	//Try Again if not found
 	if (!OwningActor) OwningActor =
 		Context.AnimInstanceProxy->GetSkelMeshComponent()->GetOwner();
