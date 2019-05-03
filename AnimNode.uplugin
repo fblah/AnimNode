@@ -3,7 +3,7 @@
 	"Version": 1,
 	"VersionName": ".1337",
 	"FriendlyName": "New Anim Nodes",
-	"Description": "New anim node mirror with more to come",
+	"Description": "New anim node in anim graph for mirroring animations",
 	"Category": "fBlah",
 	"CreatedBy": "Ajit D'Monte",
 	"CreatedByURL": "",
@@ -11,7 +11,7 @@
 	"MarketplaceURL": "",
 	"SupportURL": "",
 	"CanContainContent": true,
-	"IsBetaVersion": true,
+	"IsBetaVersion": false,
 	"Installed": false,
 	"Modules": [
 		{
