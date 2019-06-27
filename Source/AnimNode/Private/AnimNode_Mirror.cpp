@@ -10,7 +10,7 @@
 #include "AnimationRuntime.h"
 #include "Animation/AnimInstanceProxy.h"
 #include "AnimationMirrorData.h"
-
+#include "Runtime/Launch/Resources/Version.h"
 
 FAnimNode_Mirror::FAnimNode_Mirror()
 	: FAnimNode_Base()	
@@ -36,8 +36,12 @@ void FAnimNode_Mirror::Update_AnyThread(const FAnimationUpdateContext & Context)
 {
 	//***************************************
 	// Evaluate Graph, see AnimNode_Base, AnimNodeBase.h
-	GetEvaluateGraphExposedInputs().Execute(Context);
-	//EvaluateGraphExposedInputs.Execute(Context);
+#if ENGINE_MINOR_VERSION >= 22
+        GetEvaluateGraphExposedInputs().Execute(Context);
+#endif 
+#if ENGINE_MINOR_VERSION < 22
+        EvaluateGraphExposedInputs.Execute(Context);
+#endif 
 	//***************************************
 	
 	//Try Again if not found
