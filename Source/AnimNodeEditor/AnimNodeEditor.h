@@ -7,7 +7,7 @@
 //Use for plugin
 
 #include "CoreMinimal.h"
-#include "ModuleManager.h"
+#include "Modules/ModuleManager.h"
 
 class FAnimNodeEditorModule : public IModuleInterface
 {
