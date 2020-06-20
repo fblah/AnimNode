@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
 	"BuildId": "13144385",
-=======
-	"BuildId": "10570792",
->>>>>>> a1518b7272b05a999b273e538cbdfe240a43f6f8
 	"Modules": 
 	{
 		"AnimNode": "UE4Editor-AnimNode.dll",
