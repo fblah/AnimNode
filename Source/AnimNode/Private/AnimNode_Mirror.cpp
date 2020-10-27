@@ -87,8 +87,13 @@ void FAnimNode_Mirror::Evaluate_AnyThread(FPoseContext & Output)
 		//Mirror Mapped Bones  
 		for (uint8 i = 0; i < lMirBoneCount; i += 2)
 		{
-			FCompactPoseBoneIndex lInd1 = FCompactPoseBoneIndex(Output.AnimInstanceProxy->GetSkelMeshComponent()->GetBoneIndex(mAnimMirrorData->GetBoneMirrorDataStructure()[i]));
-			FCompactPoseBoneIndex lInd2 = FCompactPoseBoneIndex(Output.AnimInstanceProxy->GetSkelMeshComponent()->GetBoneIndex(mAnimMirrorData->GetBoneMirrorDataStructure()[i + 1]));
+			//FCompactPoseBoneIndex lInd1 = FCompactPoseBoneIndex(Output.AnimInstanceProxy->GetSkelMeshComponent()->GetBoneIndex(mAnimMirrorData->GetBoneMirrorDataStructure()[i]));
+			//FCompactPoseBoneIndex lInd2 = FCompactPoseBoneIndex(Output.AnimInstanceProxy->GetSkelMeshComponent()->GetBoneIndex(mAnimMirrorData->GetBoneMirrorDataStructure()[i + 1]));
+
+			// Fix for Array Out of Bounds
+			// Thank you WILLIBOLD#3632 from discord
+			FCompactPoseBoneIndex lInd1 = Output.Pose.GetBoneContainer().MakeCompactPoseIndex(FMeshPoseBoneIndex(Output.AnimInstanceProxy->GetSkelMeshComponent()->GetBoneIndex(mAnimMirrorData->GetBoneMirrorDataStructure()[i])));
+			FCompactPoseBoneIndex lInd2 = Output.Pose.GetBoneContainer().MakeCompactPoseIndex(FMeshPoseBoneIndex(Output.AnimInstanceProxy->GetSkelMeshComponent()->GetBoneIndex(mAnimMirrorData->GetBoneMirrorDataStructure()[i + 1])));
 
 			FTransform lT1 = Output.Pose[lInd1];
 			FTransform lT2 = Output.Pose[lInd2];			
