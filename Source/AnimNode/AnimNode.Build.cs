@@ -12,7 +12,6 @@ public class AnimNode : ModuleRules
 		
 		PublicIncludePaths.AddRange(
 			new string[] {
-				"AnimNode/Public"
 				// ... add public include paths required here ...
 			}
 			);

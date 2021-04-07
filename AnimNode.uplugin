@@ -24,7 +24,7 @@
 		},
 		{
 			"Name": "AnimNodeEditor",
-			"Type": "DeveloperTool",
+			"Type": "UncookedOnly",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
 				"AnimGraph"

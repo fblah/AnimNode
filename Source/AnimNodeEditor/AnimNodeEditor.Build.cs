@@ -12,7 +12,6 @@ public class AnimNodeEditor : ModuleRules
 		
 		PublicIncludePaths.AddRange(
 			new string[] {
-				"AnimNodeEditor/Public"
 				// ... add public include paths required here ...
 			}
 			);
@@ -57,7 +56,7 @@ public class AnimNodeEditor : ModuleRules
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
-		
+	
 		
 		DynamicallyLoadedModuleNames.AddRange(
 			new string[]
